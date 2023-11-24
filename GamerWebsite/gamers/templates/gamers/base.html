@@ -1,0 +1,23 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Board Game Tracker{% endblock %}</title>
+  <!-- Add any additional head content here -->
+</head>
+<body>
+  <p>
+    <a href="{% url 'gamers:index' %}">BOARD GAME </a> -
+    <a href="{% url 'gamers:games' %}">Games</a> -
+    <a href="{% url 'gamers:add_game' %}">Add Game</a>
+  </p>
+
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

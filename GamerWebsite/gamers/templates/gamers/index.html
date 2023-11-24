@@ -1,0 +1,38 @@
+{% extends 'gamers/base.html' %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #ffd6cc;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  img {
+    width: 70%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    display: block; /* Set image to display as a block element */
+    margin: 20px auto; /* Center horizontally */
+  }
+
+  h2 {
+    color: #ff6699;
+  }
+
+  p {
+    color: #333;
+    font-size: 18px;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+</style>
+
+  <h2>🎲 Welcome to the Board Game Tracker! 🎲</h2>
+  <img src="https://variety.com/wp-content/uploads/2022/05/Exploding-Kittens-the-Game-Netflix.png" alt="Fun Pic">
+  <p>This website makes tracking board game borrowers a breeze! Borrow games for free, but remember, you can only borrow a maximum of 3 games. Let the gaming fun begin! 🚀</p>
+
+{% endblock %}

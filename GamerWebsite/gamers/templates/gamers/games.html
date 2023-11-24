@@ -1,0 +1,111 @@
+{% extends 'gamers/base.html' %}
+
+{% block content %}
+
+<style>
+  body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #ffd6cc;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    color: #ff6699;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  li strong {
+    color: #ff3366;
+  }
+
+  a {
+    color: #ff3366;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  form {
+    margin-top: 20px;
+  }
+
+  button {
+    background-color: #ff3366;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #cc0052;
+  }
+
+  h2 {
+    margin-top: 30px;
+    color: #ff6699;
+  }
+</style>
+
+<h1>🎲 FUN BOARD GAMES 🎲</h1>
+
+<!-- Display Django messages -->
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<!-- List of Board Games -->
+<ul>
+  <!-- Individual Game Item -->
+  {% for game in games %}
+    <li>
+      <strong>{{ game.title }}</strong> - {{ game.description }}
+      <span>[<a href="{% url 'gamers:edit_game' game.id %}">Edit</a>]</span>
+      <span>[<a href="{% url 'gamers:delete_game' game.id %}">Delete</a>]</span>
+      <span>[<a href="{% url 'gamers:borrow_game' game.id %}">Borrow</a>]</span>
+      {% if game.id in request.session.borrowed_games %}
+        [<a href="{% url 'gamers:return_game' game.id %}">Return</a>]
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No games have been added yet. 😢</li>
+  {% endfor %}
+</ul>
+
+<!-- Your Borrowed Games Section -->
+<h2>Your Borrowed Games 🎮</h2>
+<ul>
+  {% for borrowed_game_id in request.session.borrowed_games %}
+    {% for borrowed_game in games %}
+      {% if borrowed_game.id == borrowed_game_id %}
+        <li>
+          <strong>{{ borrowed_game.title }}</strong> - {{ borrowed_game.description }}
+          [<a href="{% url 'gamers:return_game' borrowed_game.id %}">Return</a>]
+        </li>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</ul>
+
+{% endblock content %}
